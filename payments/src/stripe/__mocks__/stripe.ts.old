@@ -1,0 +1,10 @@
+import Stripe from 'stripe'
+
+export const stripe = {
+    charges: {
+      create: jest
+        .fn()
+        .mockResolvedValue({}) //return a promise, and resolve itself
+    }
+  }
+  

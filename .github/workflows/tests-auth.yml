@@ -1,4 +1,4 @@
-name: ticketing-flow
+name: tests-auth
 
 on:
   pull_request

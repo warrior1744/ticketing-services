@@ -19,8 +19,9 @@ AppComponent.getInitialProps = async (appContext) => {
 
   //Manually invoke the Landing page getInitialProps function
   let pageProps = {};
+  //check child component (Landing page has getInitialProps), if yes, then pass the context, client and currentUser as arguments to index.js
   if (appContext.Component.getInitialProps) {
-    //check child component (Landing page has getInitialProps)
+
     pageProps = await appContext.Component.getInitialProps(
       appContext.ctx,
       client,

@@ -1,19 +1,20 @@
 import useRequest from "../../hooks/useRequest";
 import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
-import Router from "next/router";
-const OrderShow = ({ order, currentUser }) => {
-  const [timeLeft, setTimeLeft] = useState(0);
+import { useRouter } from "next/router";
 
-    const { doRequest, errors, success } = useRequest({
-        url: '/api/payments',
-        method: 'post',
-        body:{
-            orderId: order.id,
-        },
-        onSuccess: () => 
-            Router.push('/orders')
-    })
+const OrderShow = ({ order, currentUser }) => {
+
+  const router = useRouter()
+  const [timeLeft, setTimeLeft] = useState(0);
+  const { doRequest, errors, success } = useRequest({
+    url: "/api/payments",
+    method: "post",
+    body: {
+      orderId: order.id,
+    },
+    onSuccess: () => router.push("/orders"),
+  });
 
   useEffect(() => {
     const findTimeLeft = () => {
@@ -38,7 +39,7 @@ const OrderShow = ({ order, currentUser }) => {
     <div>
       Time left to pay: {timeLeft} seconds
       <StripeCheckout
-        token={({id}) => doRequest({token: id})}
+        token={({ id }) => doRequest({ token: id })}
         stripeKey="pk_test_51MWhDuDNyzb8MqEPfVgTIrT6kv0Thj5phHNUXw93vEAJ6bD4dOZFqiRk2a9igmM4HChqVlQXbIEWhxv6xq9mcQZN00ayF1NqvM"
         amount={order.ticket.price}
         currency="TWD"

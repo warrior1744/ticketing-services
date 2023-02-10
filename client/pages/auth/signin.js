@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import useRequest from "../../hooks/useRequest";
 
-const signin = () => {
+const Signin = () => {
+
+  const router = useRouter()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { doRequest, errors, success} = useRequest({
@@ -11,7 +13,7 @@ const signin = () => {
     body: {
         email, password
     },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => router.push('/')
   })
 
   const onSubmit = async (e) => {
@@ -56,4 +58,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default Signin;

@@ -1,11 +1,11 @@
 import axios from "axios"
 
-const buildClient = ({req}) => {
+const BuildClient = ({req}) => {
     if (typeof window === "undefined") {
         //on the server, reload, changing url etc...
         return axios.create({
             baseURL: "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
-            headers: req.headers
+            headers: req.headers //passing host name and cookies etc...
         })
     } else {
         //on the browser, navigate within the same domain
@@ -15,4 +15,4 @@ const buildClient = ({req}) => {
     }
 }
 
-export default buildClient
+export default BuildClient

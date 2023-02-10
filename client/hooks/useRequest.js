@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const useRequest = ({ url, method, body, onSuccess }) => {
+const UseRequest = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
   const [success, setSuccess] = useState(false);
 
@@ -43,4 +43,4 @@ const useRequest = ({ url, method, body, onSuccess }) => {
   return { doRequest, errors, success };
 };
 
-export default useRequest;
+export default UseRequest;

@@ -13,23 +13,17 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   );
 };
 
-AppComponent.getInitialProps = async (appContext) => {
-  const client = buildClient(appContext.ctx); //individual page
+AppComponent.getInitialProps = async ({ Component, ctx }) => {
+  const client = buildClient(ctx); //individual page
   const { data } = await client.get("/api/users/currentuser");
 
-  //Manually invoke the Landing page getInitialProps function
+  //getInitialProps in child components won't be called if _app.js has one, so here needs to be manually invoke the other getInitialProps.
+  //check child components if has getInitialProps, if yes, then invoke them with ctx, client, and user data info, finally pass the context to AppComponent
   let pageProps = {};
-  //check child component (Landing page has getInitialProps), if yes, then pass the context, client and currentUser as arguments to index.js
-  if (appContext.Component.getInitialProps) {
-
-    pageProps = await appContext.Component.getInitialProps(
-      appContext.ctx,
-      client,
-      data.currentUser
-    );
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx, client, data.currentUser);
   }
 
-  //pass child props to AppComponent
   return {
     pageProps,
     ...data,

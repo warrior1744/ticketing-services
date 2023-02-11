@@ -4,8 +4,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useRouter } from "next/router";
 
 const OrderShow = ({ order, currentUser }) => {
-
-  const router = useRouter()
+  const router = useRouter();
   const [timeLeft, setTimeLeft] = useState(0);
   const { doRequest, errors, success } = useRequest({
     url: "/api/payments",

@@ -6,7 +6,6 @@ const UseRequest = ({ url, method, body, onSuccess }) => {
   const [success, setSuccess] = useState(false);
 
   const doRequest = async (props = {}) => {
-
     try {
       setErrors(null);
       setSuccess(false);
@@ -17,7 +16,7 @@ const UseRequest = ({ url, method, body, onSuccess }) => {
       }
       return response.data;
     } catch (err) {
-      console.log('err', err)
+      console.log("err", err);
       setErrors(
         err.response ? (
           <div className="alert alert-danger">

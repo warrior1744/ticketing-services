@@ -3,10 +3,13 @@ import 'express-async-errors'
 import { json } from 'body-parser'
 
 import { createTicketRouter } from './routes/new'
+import { myTicketRouter } from './routes/my'
 import { showTicketRouter } from './routes/show'
 import { indexTicketRouter } from './routes'
 import { updateTicketRouter } from './routes/update'
 import { uploadImageRouter } from './routes/upload'
+import { deleteTicketRouter } from './routes/delete'
+
 
 import cookieSession from 'cookie-session'
 import { errorHandler, NotFoundError, currentUser } from '@jimtickets/common'
@@ -31,10 +34,12 @@ cloudinary.config({
 
 app.use(currentUser)
 app.use(createTicketRouter)
+app.use(myTicketRouter)
 app.use(showTicketRouter)
 app.use(indexTicketRouter)
 app.use(updateTicketRouter)
 app.use(uploadImageRouter)
+app.use(deleteTicketRouter)
 
 
 app.get('*', async (req, res) => {

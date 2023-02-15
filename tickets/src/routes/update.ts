@@ -31,17 +31,19 @@ router.put(
       throw new NotAuthorizedError();
     }
 
-    if (ticket.orderId){
-      throw new BadRequestError('Unable to update, ticket is Reserved by an order')
+    if (ticket.orderId) {
+      throw new BadRequestError(
+        "Unable to update, ticket is Reserved by an order"
+      );
     }
 
     ticket.set({
-        title: req.body.title,
-        price: req.body.price,
-        image: req.body.image
-    })
+      title: req.body.title,
+      price: req.body.price,
+      image: req.body.image,
+    });
 
-    await ticket.save()
+    await ticket.save();
 
     await new TicketUpdatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
@@ -49,8 +51,8 @@ router.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
-      image: ticket.image
-    })
+      image: ticket.image,
+    });
 
     res.send(ticket);
   }

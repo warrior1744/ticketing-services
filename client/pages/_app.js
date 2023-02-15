@@ -4,10 +4,6 @@ import buildClient from "../api/buildClient";
 import Header from "../components/header";
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
-
-  console.log('AppComponent PageProps' , pageProps)
-  console.log('AppComponent currentUser', currentUser)
-
   return (
     <div>
       <Header currentUser={currentUser} />
@@ -19,7 +15,6 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 };
 
 AppComponent.getInitialProps = async ({ Component, ctx }) => {
-  console.log('_app.js getInitialProps gets called...')
   const client = buildClient(ctx); //individual page
   const { data } = await client.get("/api/users/currentuser");
 
@@ -27,7 +22,6 @@ AppComponent.getInitialProps = async ({ Component, ctx }) => {
   //check child components if has getInitialProps, if yes, then invoke them with ctx, client, and user data info, finally pass the context to AppComponent
   let pageProps = {};
   if (Component.getInitialProps) {
-    console.log('_app.js, Components.getInitialProps gets called...')
     pageProps = await Component.getInitialProps(ctx, client, data.currentUser);
   }
 

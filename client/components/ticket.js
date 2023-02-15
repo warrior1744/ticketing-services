@@ -9,7 +9,7 @@ function Ticket({ ticket }) {
         <Image
           style={{ objectFit: "contain" }}
           alt={ticket.title}
-          src={"/images/event-default.png"}
+          src={ticket.image}
           width={250}
           height={250}
         />
@@ -28,7 +28,7 @@ function Ticket({ ticket }) {
           href="/tickets/[ticketId]"
           as={`/tickets/${ticket.id}`}
         >
-          <a className="btn">View</a>
+          <a className="btn">Buy</a>
         </Link>
       </div>
     </div>

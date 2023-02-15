@@ -5,6 +5,7 @@ import { TicketCreatedListener } from "./events/listeners/ticket-created-listene
 import { TicketUpdatedListener } from "./events/listeners/ticket-updated-listener";
 import { ExpirationCompleteListener } from "./events/listeners/expiration-complete-listener";
 import { PaymentCreatedListener } from "./events/listeners/payment-created-listener";
+import { TicketRemovedListener } from "./events/listeners/ticket-removed-listener";
 
 const start = async () => {
   console.log('Order Service Starting...')
@@ -50,6 +51,7 @@ const start = async () => {
     new TicketUpdatedListener(natsWrapper.client).listen()
     new ExpirationCompleteListener(natsWrapper.client).listen()
     new PaymentCreatedListener(natsWrapper.client).listen()
+    new TicketRemovedListener(natsWrapper.client).listen()
     
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDb");

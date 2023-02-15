@@ -3,7 +3,6 @@ import Layout from "@/components/layout";
 import Ticket from "@/components/ticket";
 
 const Landing = ({ currentUser, tickets }) => {
-  console.log('tickets', tickets)
   return (
     <div>
       <Layout>
@@ -12,9 +11,8 @@ const Landing = ({ currentUser, tickets }) => {
         {tickets.length === 0 && <h3>No Ticket for sale</h3>}
 
         {tickets.map((ticket) => {
-          return <Ticket key={ticket.id} ticket={ticket}/>
+          return <Ticket key={ticket.id} ticket={ticket} />;
         })}
-
       </Layout>
     </div>
   );

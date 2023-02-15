@@ -2,7 +2,7 @@ import { requireAuth } from "@jimtickets/common";
 import express, { Express, Request, Response} from "express";
 import { Ticket } from "../models/ticket";
 // @ts-ignore
-import multer, { Multer } from "multer";
+import multer from "multer";
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 import { BadRequestError } from "@jimtickets/common";
@@ -15,10 +15,10 @@ type File = Express.Multer.File
 const router = express.Router();
 
 const storage = multer.diskStorage({
-  destination(req: Request, file: File, cb: DestinationCallback) {
+  destination(req: Request, file, cb) {
     cb(null, "src/uploads/");
   },
-  filename(req: Request, file: File, cb: FileNameCallback) {
+  filename(req: Request, file, cb) {
     console.log("file", file);
     const filename = `${file.fieldname}-${Date.now()}${path.extname(
       file.originalname
@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
   }, 
 });
 
-function checkFileType(file: File, cb:FileFilterCallback) {
+function checkFileType(file: any, cb: any) {
   const filetypes = /jpg|jpeg|png/;
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   const mimetype = filetypes.test(file.mimetype);
@@ -35,13 +35,13 @@ function checkFileType(file: File, cb:FileFilterCallback) {
   if (extname && mimetype) {
     return cb(null, true);
   } else {
-    cb(new Error('wront file type'));
+    cb('wront file type');
   }
 }
 
 const upload = multer({
   storage,
-  fileFilter: function (req: Request, file: File, cb: FileFilterCallback) {
+  fileFilter: function (req: Request, file, cb) {
     checkFileType(file, cb);
   },
 });
@@ -51,7 +51,9 @@ router.post(
   requireAuth,
   upload.single("image"),
   async (req, res) => {
+    console.log('/api/tickets/upload called....')
     // const file: File = req.file
+    console.log('req.file', req.file)
     const uploadPhoto = await cloudinary.uploader.upload(`${req.file!.path}`);
     if(!uploadPhoto){
         throw new BadRequestError('upload failed, please try again')

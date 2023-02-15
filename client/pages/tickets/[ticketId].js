@@ -1,8 +1,9 @@
 import useRequest from "../../hooks/useRequest";
 import { useRouter } from "next/router";
 
-const TicketShow = ({ ticket }) => {
+const TicketShow = ({ ticket, currentUser }) => {
   const router = useRouter();
+  console.log('currentUser', currentUser)
   const { doRequest, errors, success } = useRequest({
     url: "/api/orders",
     method: "post",

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import styles from "@/styles/Header.module.css";
 
 const Header = ({ currentUser }) => {
   const links = [
@@ -21,14 +22,21 @@ const Header = ({ currentUser }) => {
     });
 
   return (
-    <nav className="navbar navbar-light bg-light">
-      <Link legacyBehavior href="/">
-        <a className="navbar-brand"> GitTix </a>
-      </Link>
-      <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
-      </div>
-    </nav>
+    <>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <Link legacyBehavior href="/">
+            <a className="navbar-brand"> DJ Event Booth </a>
+          </Link>
+        </div>
+        {"search components"}
+        <nav className="navbar navbar-light bg-light">
+          <div className="d-flex justify-content-end">
+            <ul className="nav d-flex align-items-center">{links}</ul>
+          </div>
+        </nav>
+      </header>
+    </>
   );
 };
 

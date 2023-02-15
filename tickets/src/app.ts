@@ -6,9 +6,11 @@ import { createTicketRouter } from './routes/new'
 import { showTicketRouter } from './routes/show'
 import { indexTicketRouter } from './routes'
 import { updateTicketRouter } from './routes/update'
+import { uploadImageRouter } from './routes/upload'
 
 import cookieSession from 'cookie-session'
 import { errorHandler, NotFoundError, currentUser } from '@jimtickets/common'
+import {v2 as cloudinary} from 'cloudinary'
 
 const app = express()
 app.set('trust proxy', true) //traffic proxied through ingress nginx
@@ -19,11 +21,21 @@ app.use(
         secure: process.env.NODE_ENV !== 'test' //use https connection
     })
 )
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
+})
+
 app.use(currentUser)
 app.use(createTicketRouter)
 app.use(showTicketRouter)
 app.use(indexTicketRouter)
 app.use(updateTicketRouter)
+app.use(uploadImageRouter)
+
 
 app.get('*', async (req, res) => {
     throw new NotFoundError()

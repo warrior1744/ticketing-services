@@ -37,7 +37,8 @@ router.put(
 
     ticket.set({
         title: req.body.title,
-        price: req.body.price
+        price: req.body.price,
+        image: req.body.image
     })
 
     await ticket.save()
@@ -47,7 +48,8 @@ router.put(
       version: ticket.version,
       title: ticket.title,
       price: ticket.price,
-      userId: ticket.userId
+      userId: ticket.userId,
+      image: ticket.image
     })
 
     res.send(ticket);

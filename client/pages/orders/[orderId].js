@@ -2,6 +2,7 @@ import useRequest from "../../hooks/useRequest";
 import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { useRouter } from "next/router";
+import Layout from "@/components/layout";
 
 const OrderShow = ({ order, currentUser }) => {
   const router = useRouter();
@@ -36,24 +37,26 @@ const OrderShow = ({ order, currentUser }) => {
 
   return (
     <div>
-      Time left to pay: {timeLeft} seconds
-      <StripeCheckout
-        token={({ id }) => doRequest({ token: id })}
-        stripeKey="pk_test_51MWhDuDNyzb8MqEPfVgTIrT6kv0Thj5phHNUXw93vEAJ6bD4dOZFqiRk2a9igmM4HChqVlQXbIEWhxv6xq9mcQZN00ayF1NqvM"
-        amount={order.ticket.price}
-        currency="TWD"
-        description={order.ticket.title}
-        label="Paid with Stripe"
-        name="Jim1984 Tickets"
-        email={currentUser.email}
-      />
-      {errors}
-      {success && (
-        <div className="alert alert-success">
-          <h4>Success</h4>
-          <p>Order {order.id} has been paid</p>
-        </div>
-      )}
+      <Layout>
+        Time left to pay: {timeLeft} seconds
+        <StripeCheckout
+          token={({ id }) => doRequest({ token: id })}
+          stripeKey="pk_test_51MWhDuDNyzb8MqEPfVgTIrT6kv0Thj5phHNUXw93vEAJ6bD4dOZFqiRk2a9igmM4HChqVlQXbIEWhxv6xq9mcQZN00ayF1NqvM"
+          amount={order.ticket.price}
+          currency="TWD"
+          description={order.ticket.title}
+          label="Paid with Stripe"
+          name="Jim1984 Tickets"
+          email={currentUser.email}
+        />
+        {errors}
+        {success && (
+          <div className="alert alert-success">
+            <h4>Success</h4>
+            <p>Order {order.id} has been paid</p>
+          </div>
+        )}
+      </Layout>
     </div>
   );
 };

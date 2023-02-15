@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import useRequest from "../../hooks/useRequest";
+import Layout from "@/components/layout";
+import styles from "@/styles/Form.module.css"
+import Link from "next/link";
 
 const NewTicket = () => {
   const router = useRouter();
@@ -39,8 +42,10 @@ const NewTicket = () => {
 
   return (
     <div>
+      <Layout title="Create a new ticket">
+        <Link href="/">Go back</Link>
       <h1>Create a Ticket</h1>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={styles.form}>
         <div className="form-group">
           <label>Title</label>
           <input
@@ -62,6 +67,7 @@ const NewTicket = () => {
         {success}
         <button className="btn btn-primary">Submit</button>
       </form>
+      </Layout>
     </div>
   );
 };

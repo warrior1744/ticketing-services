@@ -32,12 +32,14 @@ afterAll(async () => {
 });
 
 global.signupForCookie = async () => {
+  const username = "johnny";
   const email = "john@example.com";
   const password = "thisispassword";
 
   const response = await request(app)
     .post("/api/users/signup")
     .send({
+      username,
       email,
       password,
     })

@@ -27,10 +27,10 @@ const Header = ({ currentUser }) => {
       <header className={styles.header}>
         <div className={styles.logo}>
           <Link legacyBehavior href="/">
-            <a className="navbar-brand"> DJ Event Booth </a>
+            <a className="navbar-brand"> Ticket Booth </a>
           </Link>
         </div>
-        {"search components"}
+        {/* search components */}
         <nav className="navbar navbar-light bg-light">
           <div className="d-flex justify-content-end">
             <ul className="nav d-flex align-items-center">{links}</ul>

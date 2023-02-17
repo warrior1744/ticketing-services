@@ -4,8 +4,8 @@ import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 interface TicketAttrs {
   title: string;
   price: number;
+  image: string;
   userId: string;
-  image: string
 }
 
 interface TicketDoc extends mongoose.Document {

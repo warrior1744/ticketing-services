@@ -16,12 +16,12 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
+    const { title, price, image } = req.body;
     const ticket = Ticket.build({ 
         title, 
         price, 
+        image: image || '',
         userId: req.currentUser!.id,
-        image: '/images/event-default.png'
     });
     await ticket.save()
 
@@ -31,7 +31,7 @@ router.post(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
-      image: ticket.image
+      image: ticket.image || ''
     })
     res.status(201).send(ticket);
   }

@@ -1,7 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken";
-import { BadRequestError, validateRequest} from "@jimtickets/common";
+import { BadRequestError, validateRequest } from "@jimtickets/common";
 import { User } from "../models/user";
 
 const router = express.Router();
@@ -9,6 +9,10 @@ const router = express.Router();
 router.post(
   "/api/users/signup",
   [
+    body("username")
+      .trim()
+      .isLength({ min: 1, max: 24 })
+      .withMessage("username too long"),
     body("email").isEmail().withMessage("Email must be valid"),
     body("password")
       .trim()
@@ -17,14 +21,14 @@ router.post(
   ],
   validateRequest,
   async (req: express.Request, res: express.Response) => {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      throw new BadRequestError("Email in use");
+      throw new BadRequestError("Email is in use");
     }
 
-    const user = User.build({ email, password });
+    const user = User.build({ username, email, password });
     await user.save();
     //Generate JWT
     const userJwt = jwt.sign(

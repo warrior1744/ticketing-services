@@ -16,6 +16,7 @@
   
   .header a:hover {
     color: #000;
+    background: #fdcaca;
   }
   .header ul {
     display: flex;

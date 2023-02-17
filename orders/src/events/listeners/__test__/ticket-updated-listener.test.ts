@@ -21,6 +21,7 @@ const setup = async () => {
         id: ticket._id,
         title: ticket.title,
         price: ticket.price + 20, //updated ticket price
+        image: ticket.image,
         userId: new mongoose.Types.ObjectId().toHexString()
     }
     //create a fake message object

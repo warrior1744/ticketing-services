@@ -1,56 +1,56 @@
 import React from "react";
 import Layout from "@/components/layout";
-import Ticket from "@/components/ticket";
-import styles from "@/styles/Ticket.module.css";
-import useRequest from "hooks/useRequest";
+import styles from "@/styles/Order.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
 const MyTickets = ({ currentUser, myTickets }) => {
-  console.log("mytickets", myTickets);
-
-  const deleteRequest = (ticketId) => {
-    console.log('ticketId', ticketId)
-
-  };
-
+  console.log("My ticket", myTickets);
   return (
     <div>
       <Layout>
+        <Link href="/">Go back</Link>
         <h1>My Tickets for sell</h1>
         {myTickets.length === 0 && <h3>You have no tickets for sell</h3>}
 
         <ul>
           {myTickets.map((ticket) => (
             <li key={ticket.id}>
-              <div className={styles.event}>
+              <div className={styles.order}>
                 <div className={styles.img}>
                   <Image
                     style={{ objectFit: "contain" }}
                     alt={ticket.title}
                     src={ticket.image || "/images/event-default.png"}
-                    width={250}
-                    height={250}
+                    width={120}
+                    height={80}
                   />
                 </div>
                 <div className={styles.info}>
-                  {}
                   <h3>{ticket.title}</h3>
+                  <p>$ {ticket.price} TWD</p>
                 </div>
-
-                <div className={styles.link}>
-                  <Link
-                    legacyBehavior
-                    href="/tickets/edit/[ticketId]"
-                    as={`/tickets/edit/${ticket.id}`}
-                  >
-                    <a className="btn btn-secondary">Edit</a>
-                  </Link>
-
-                  <button onClick={() => deleteRequest(ticket.id)} className="btn ">
-                    Remove
-                  </button>
-                </div>
+                {ticket.orderId ? (
+                  <div className={styles.link}>
+                    <Image
+                      style={{ objectFit: "contain" }}
+                      alt={ticket.title}
+                      src={"/images/sold.png"}
+                      width={120}
+                      height={80}
+                    />
+                  </div>
+                ) : (
+                  <div className={styles.link}>
+                    <Link
+                      legacyBehavior
+                      href="/tickets/edit/[ticketId]"
+                      as={`/tickets/edit/${ticket.id}`}
+                    >
+                      <a className="btn btn-secondary">Edit</a>
+                    </Link>
+                  </div>
+                )}
               </div>
             </li>
           ))}

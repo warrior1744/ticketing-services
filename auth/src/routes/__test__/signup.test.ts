@@ -6,6 +6,7 @@ it('signup test returns a 201', async () => {
     return request(app)
         .post('/api/users/signup')
         .send({ 
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'
         })
@@ -17,6 +18,7 @@ it('returns a 400 with an invalid email', async () => {
     return request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email:'john',
             paswrrod: 'thisispassword'
         })
@@ -28,6 +30,7 @@ it('returns a 400 with an invalid password', async () => {
     return request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email:'john@example.com',
             paswrrod: 'pwd'
         })
@@ -47,6 +50,7 @@ it('disallows duplicate emails', async () => {
     await request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'            
         })
@@ -55,6 +59,7 @@ it('disallows duplicate emails', async () => {
     await request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'            
         })
@@ -66,6 +71,7 @@ it('sets a cookie after signup', async () => {
     const response = await request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'            
         })

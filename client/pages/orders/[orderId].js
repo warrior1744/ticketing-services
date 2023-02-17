@@ -25,14 +25,23 @@ const OrderShow = ({ order, currentUser }) => {
     findTimeLeft();
     const timerId = setInterval(findTimeLeft, 1000);
 
-    //put return to useEffect means that the function will be called once it navigates away (cleanup function)
+    //cleanup
     return () => {
+      console.log("clearInterval");
       clearInterval(timerId);
     };
   }, [order]);
 
   if (timeLeft < 0) {
-    return <div>Order Expired</div>;
+    setTimeout(() => {
+      router.push("/orders");
+    }, 5000);
+    return (
+      <div>
+        <h1>Order Expired</h1>
+        <p>Redirecting to orders page...</p>
+      </div>
+    );
   }
 
   return (

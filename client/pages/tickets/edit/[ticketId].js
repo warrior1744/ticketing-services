@@ -7,61 +7,92 @@ import Layout from "@/components/layout";
 import styles from "@/styles/Form.module.css";
 import { FaImage } from "react-icons/fa";
 import ImageUpload from "@/components/imageUpload";
-import axios from "axios";
+import Image from "next/image";
 
 const EditTicket = ({ ticket, currentUser }) => {
+  console.log("My ticket", ticket);
   const router = useRouter();
   const [title, setTitle] = useState(ticket.title);
   const [price, setPrice] = useState(ticket.price);
-  const [image, setImage] = useState("/images/event-default.png");
+  const [image, setImage] = useState(ticket.image || null);
   const [showModal, setShowModal] = useState(false);
-  // const { doRequest, errors, success } = useRequest({
-  //   url: `/api/ticket/${ticket.id}`,
-  //   method: "put",
-  //   body: {
-  //     ticketId: ticket.id,
-  //     title,
-  //     price,
-  //     image
-  //   },
-  //   onSuccess: () => console.log("update ok"),
-  // });
+  const [disableEdit, setDisableEdit] = useState(false);
+
+  useEffect(() => {
+    if (ticket.orderId) {
+      setDisableEdit(true);
+    }
+  }, [disableEdit]);
+
+  const { doRequest, errors, success } = useRequest({
+    url: `/api/tickets/${ticket.id}`,
+    method: "put",
+    body: {
+      title: title,
+      price: price,
+      image: image,
+    },
+    config: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    onSuccess: () => router.push("/tickets/my"),
+  });
+
+  const {
+    doRequest: deleteRequest,
+    errors: deleteErrors,
+    success: successRequest,
+  } = useRequest({
+    url: `/api/tickets/${ticket.id}`,
+    method: "delete",
+    onSuccess: () => router.push("/tickets/my"),
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const body = { title: title, price: price, image: image };
-      const { data } = await axios.put(`/api/tickets/${ticket.id}`, body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log("data", data);
-    } catch (error) {
-      throw new Error("data update failed");
-    }
-    // await doRequest()
+    await doRequest();
   };
 
   const imageUploaded = async (uploadedImage) => {
-    console.log("uploadedImage", uploadedImage);
     setImage(uploadedImage.url);
     setShowModal(false);
+  };
+
+  const deleteHandler = async () => {
+    if (currentUser.id !== ticket.userId) {
+      return;
+    }
+    if (ticket.orderId) {
+      return;
+    }
+    if (confirm(`Are you sure to delete ${ticket.id} ?`)) {
+      await deleteRequest();
+    }
   };
 
   return (
     <Layout title="edit the ticket">
       <Link href="/tickets/my">Go Back</Link>
-      <h1>Edit my ticket</h1>
-      <form onSubmit={handleSubmit} className={styles.Form}>
+      {disableEdit ? (
+        <h1 style={{ color: "red" }}>
+          Unable to edit this Ticket as it is reserved or sold
+        </h1>
+      ) : (
+        <h1>Edit my ticket</h1>
+      )}
+      <button onClick={deleteHandler} className="btn" disabled={disableEdit}>
+        Remove this ticket
+      </button>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div className="form-group">
           <label>Title</label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="form-control"
+            disabled={disableEdit}
           />
         </div>
         <div className="form-group">
@@ -70,16 +101,42 @@ const EditTicket = ({ ticket, currentUser }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="form-control"
+            disabled={disableEdit}
           />
         </div>
-        <input type="submit" value="submit" className="btn" />
+        {errors}
+        {deleteErrors}
+        <input
+          type="submit"
+          value="Submit"
+          className="btn"
+          disabled={disableEdit}
+        />
       </form>
 
       <h2>Ticket Image</h2>
+      {image ? (
+        <>
+          <Image
+            style={{ objectFit: "contain" }}
+            alt={image}
+            src={image}
+            height={150}
+            width={150}
+          />
+          <span>Require Submit to save the changes</span>
+        </>
+      ) : (
+        <div>
+          <p>No image uploaded</p>
+        </div>
+      )}
+
       <div>
         <button
           className="btn btn-secondary"
           onClick={() => setShowModal(true)}
+          disabled={disableEdit}
         >
           <FaImage /> Set Image
         </button>

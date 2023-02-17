@@ -9,7 +9,7 @@ function Ticket({ ticket }) {
         <Image
           style={{ objectFit: "contain" }}
           alt={ticket.title}
-          src={ticket.image}
+          src={ticket.image || "/images/event-default.png"}
           width={250}
           height={250}
         />
@@ -20,6 +20,7 @@ function Ticket({ ticket }) {
           {new Date(evt.date).toLocaleDateString("zh-TW")} at {ticket.date}
         </span> */}
         <h3>{ticket.title}</h3>
+        <p>$ {ticket.price} TWD</p>
       </div>
 
       <div className={styles.link}>
@@ -28,7 +29,7 @@ function Ticket({ ticket }) {
           href="/tickets/[ticketId]"
           as={`/tickets/${ticket.id}`}
         >
-          <a className="btn">Buy</a>
+          <a className="btn">View</a>
         </Link>
       </div>
     </div>

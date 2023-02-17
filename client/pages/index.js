@@ -3,12 +3,13 @@ import Layout from "@/components/layout";
 import Ticket from "@/components/ticket";
 
 const Landing = ({ currentUser, tickets }) => {
+  console.log('all tickets', tickets)
   return (
     <div>
       <Layout>
-        <h1>Upcoming Events & Tickets</h1>
+        <h1>Available Tickets</h1>
 
-        {tickets.length === 0 && <h3>No Ticket for sale</h3>}
+        {tickets.length === 0 && <h3>No Ticket Available Right Now !</h3>}
 
         {tickets.map((ticket) => {
           return <Ticket key={ticket.id} ticket={ticket} />;

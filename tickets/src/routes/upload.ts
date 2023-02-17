@@ -44,6 +44,7 @@ const upload = multer({
   fileFilter: function (req: Request, file, cb) {
     checkFileType(file, cb);
   },
+  limits: { fieldSize: 5242880}
 });
 
 router.post(
@@ -51,16 +52,16 @@ router.post(
   requireAuth,
   upload.single("image"),
   async (req, res) => {
-    console.log('/api/tickets/upload called....')
-    // const file: File = req.file
     console.log('req.file', req.file)
+
+    if(req.file!.size > 3145728){
+      throw new BadRequestError('File must be less than 3mb')
+    }
     const uploadPhoto = await cloudinary.uploader.upload(`${req.file!.path}`);
+    
     if(!uploadPhoto){
         throw new BadRequestError('upload failed, please try again')
     }
-    console.log("req.file", req.file);
-    console.log(uploadPhoto);
-    console.log(uploadPhoto.url);
     res.send({ message: "file uploaded successful", url: uploadPhoto.url });
   }
 );

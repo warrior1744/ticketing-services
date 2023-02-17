@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next"
+    "dev": "next && node script.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@jimtickets/common": "^1.0.18",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "next": "^13.1.1",

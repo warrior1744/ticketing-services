@@ -16,7 +16,7 @@ const NewTicket = () => {
       title,
       price,
     },
-    onSuccess: () => router.push("/"),
+    onSuccess: () => router.push("/tickets/my"),
   });
 
   const onSubmit = async (e) => {
@@ -64,8 +64,7 @@ const NewTicket = () => {
           />
         </div>
         {errors}
-        {success}
-        <button className="btn btn-primary">Submit</button>
+        <input type="submit" value="Add Ticket" className="btn" />
       </form>
       </Layout>
     </div>

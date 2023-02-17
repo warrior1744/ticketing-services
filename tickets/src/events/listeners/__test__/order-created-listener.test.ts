@@ -12,7 +12,8 @@ const setup = async () => {
     const ticket = Ticket.build({
         title: 'Michael Jackson concert',
         price: 200,
-        userId: new mongoose.Types.ObjectId().toHexString()
+        userId: new mongoose.Types.ObjectId().toHexString(),
+        image:''
     })
     await ticket.save()
     //create a fake data event ( a published event)

@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
+import Router from "next/router";
+=======
 import { useRouter } from "next/router";
+>>>>>>> master
 import useRequest from "../../hooks/useRequest";
 import Layout from "@/components/layout";
 import styles from "@/styles/AuthForm.module.css";
@@ -10,16 +14,26 @@ const Signup = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+<<<<<<< HEAD
+=======
   const [username, setUsername] = useState("");
+>>>>>>> master
   const { doRequest, errors, success } = useRequest({
     url: "/api/users/signup",
     method: "post",
     body: {
+<<<<<<< HEAD
+      email,
+      password,
+    },
+    onSuccess: () => Router.push("/"),
+=======
       username,
       email,
       password,
     },
     onSuccess: () => router.push("/"),
+>>>>>>> master
   });
 
   const onSubmit = async (e) => {
@@ -32,7 +46,10 @@ const Signup = () => {
     if (success) {
       setEmail("");
       setPassword("");
+<<<<<<< HEAD
+=======
       setUsername("");
+>>>>>>> master
     }
   }, [success]);
 

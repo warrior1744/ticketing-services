@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 const MyTickets = ({ currentUser, myTickets }) => {
-  console.log("My ticket", myTickets);
   return (
     <div>
       <Layout>

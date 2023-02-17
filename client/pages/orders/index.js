@@ -4,7 +4,6 @@ import Image from "next/image";
 import styles from "@/styles/Order.module.css";
 
 const OrderIndex = ({ orders }) => {
-  console.log("orders", orders);
   return (
     <div>
       <Layout>

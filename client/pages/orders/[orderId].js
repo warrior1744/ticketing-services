@@ -27,7 +27,6 @@ const OrderShow = ({ order, currentUser }) => {
 
     //cleanup
     return () => {
-      console.log("clearInterval");
       clearInterval(timerId);
     };
   }, [order]);

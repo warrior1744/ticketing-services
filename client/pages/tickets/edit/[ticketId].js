@@ -10,7 +10,6 @@ import ImageUpload from "@/components/imageUpload";
 import Image from "next/image";
 
 const EditTicket = ({ ticket, currentUser }) => {
-  console.log("My ticket", ticket);
   const router = useRouter();
   const [title, setTitle] = useState(ticket.title);
   const [price, setPrice] = useState(ticket.price);

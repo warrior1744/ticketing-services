@@ -1,31 +1,32 @@
 import { useState, useEffect } from "react";
-import Router from 'next/router'
+import Router from "next/router";
 import useRequest from "../../hooks/useRequest";
 
 const signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { doRequest, errors, success} = useRequest({
-    url: '/api/users/signup',
-    method: 'post',
+  const { doRequest, errors, success } = useRequest({
+    url: "/api/users/signup",
+    method: "post",
     body: {
-        email, password
+      email,
+      password,
     },
-    onSuccess: () => Router.push('/')
-  })
+    onSuccess: () => Router.push("/"),
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    await doRequest()
+    await doRequest();
   };
 
   useEffect(() => {
-    if(success){
-        setEmail('')
-        setPassword('')
+    if (success) {
+      setEmail("");
+      setPassword("");
     }
-  }, [success])
+  }, [success]);
 
   return (
     <form onSubmit={onSubmit}>

@@ -6,6 +6,7 @@ it('signin failed, user does not exist', async () => {
     await request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'
         })
@@ -25,6 +26,7 @@ it('signin failed, password not match', async () => {
     await request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'
         })
@@ -44,6 +46,7 @@ it('sets a cookie after signup', async () => {
     await request(app)
     .post('/api/users/signup')
     .send({
+        username: 'johnny',
         email: 'john@example.com',
         password: 'thisispassword'
     })
@@ -65,6 +68,7 @@ it('signin ok', async () => {
     await request(app)
         .post('/api/users/signup')
         .send({
+            username: 'johnny',
             email: 'john@example.com',
             password: 'thisispassword'
         })

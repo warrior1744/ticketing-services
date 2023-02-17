@@ -5,7 +5,8 @@ it('implements optimistic concurrency control', async () => {
     const ticket = Ticket.build({
         title: 'concert',
         price: 5,
-        userId: '123'
+        userId: '123',
+        image: ''
     })
     //save the ticket to the database
     await ticket.save()
@@ -30,7 +31,8 @@ it('increments the version number on multiple saves', async () => {
     const ticket = Ticket.build({
         title: 'concert',
         price: 20,
-        userId: '123'
+        userId: '123',
+        image: ''
     })
     await ticket.save()
     expect(ticket.version).toEqual(0)

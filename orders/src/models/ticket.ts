@@ -13,6 +13,7 @@ export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
   version: number;
+  image: string;
   isReserved(): Promise<boolean>;
 }
 
@@ -32,6 +33,9 @@ const ticketSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
+    image: {
+      type: String,
+    }
   },
   {
     toJSON: {

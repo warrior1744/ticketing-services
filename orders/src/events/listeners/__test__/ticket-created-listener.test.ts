@@ -15,6 +15,7 @@ const setup = async () => {
         id: new mongoose.Types.ObjectId().toHexString(),
         title: 'Michael Jackson concert',
         price: 200,
+        image: '',
         userId: new mongoose.Types.ObjectId().toHexString()
     }
     //create a fake message object

@@ -1,18 +1,39 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import Router from "next/router";
+=======
+import { useRouter } from "next/router";
+>>>>>>> master
 import useRequest from "../../hooks/useRequest";
+import Layout from "@/components/layout";
+import styles from "@/styles/AuthForm.module.css";
+import { FaUser } from "react-icons/fa";
+import Link from "next/link";
 
-const signup = () => {
+const Signup = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+<<<<<<< HEAD
+=======
+  const [username, setUsername] = useState("");
+>>>>>>> master
   const { doRequest, errors, success } = useRequest({
     url: "/api/users/signup",
     method: "post",
     body: {
+<<<<<<< HEAD
       email,
       password,
     },
     onSuccess: () => Router.push("/"),
+=======
+      username,
+      email,
+      password,
+    },
+    onSuccess: () => router.push("/"),
+>>>>>>> master
   });
 
   const onSubmit = async (e) => {
@@ -25,36 +46,60 @@ const signup = () => {
     if (success) {
       setEmail("");
       setPassword("");
+<<<<<<< HEAD
+=======
+      setUsername("");
+>>>>>>> master
     }
   }, [success]);
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="container">
-        <h1>signup</h1>
-        <div className="form-group mb-3">
-          <label>Email Address</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-control"
-          />
-        </div>
-        <div className="form-group mb-3">
-          <label>Password</label>
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            className="form-control"
-          />
-        </div>
-        <button className="btn btn-primary mb-3">Sign Up</button>
-        {errors}
-        {success}
+    <Layout title="User Sign Up">
+      <div className={styles.auth}>
+        <h1>
+          <FaUser />
+          Sign Up
+        </h1>
+        <form onSubmit={onSubmit}>
+          <div>
+            <label htmlFor="username">Username</label>
+            <input
+              name="username"
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email Address</label>
+            <input
+              name="email"
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              name="password"
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <input type="submit" value="Register" className="btn" />
+          {errors}
+          <p>
+            Already Have an account ? <Link href="/auth/signin">Log In</Link>
+          </p>
+        </form>
       </div>
-    </form>
+    </Layout>
   );
 };
 
-export default signup;
+export default Signup;

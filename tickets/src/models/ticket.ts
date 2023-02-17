@@ -4,6 +4,7 @@ import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 interface TicketAttrs {
   title: string;
   price: number;
+  image: string;
   userId: string;
 }
 
@@ -12,6 +13,7 @@ interface TicketDoc extends mongoose.Document {
   price: number;
   userId: string;
   version: number;
+  image: string;
   orderId?: string
 }
 
@@ -34,6 +36,9 @@ const ticketSchema = new mongoose.Schema(
       required: true,
     },
     orderId: {
+      type: String,
+    },
+    image: {
       type: String,
     }
   },

@@ -1,0 +1,42 @@
+.order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    padding: 5px;
+    box-shadow: 2px 3px 5px rgba(0,0,0,0.1)
+}
+
+.order p {
+    font-size: 0.8rem !important; 
+}
+
+.img {
+    flex: 1;
+    margin: 2px;
+}
+
+.info {
+    flex: 2;
+    margin: 5px;
+}
+
+.stats {
+    flex: 1;
+    margin: 5px;
+}
+
+.link {
+    margin-right:10px;
+}
+
+@media (max-width: 600px) {
+    .order {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .info {
+        margin-bottom: 5px;
+    }
+}

@@ -1,17 +1,26 @@
 import useRequest from "../../hooks/useRequest";
 import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
-import Router from "next/router";
-const OrderShow = ({ order, currentUser }) => {
-  const [timeLeft, setTimeLeft] = useState(0);
+import { useRouter } from "next/router";
+import Layout from "@/components/layout";
 
+<<<<<<< HEAD
+=======
+const OrderShow = ({ order, currentUser }) => {
+  const router = useRouter();
+  const [timeLeft, setTimeLeft] = useState(0);
+>>>>>>> master
   const { doRequest, errors, success } = useRequest({
     url: "/api/payments",
     method: "post",
     body: {
       orderId: order.id,
     },
+<<<<<<< HEAD
     onSuccess: () => Router.push("/orders"),
+=======
+    onSuccess: () => router.push("/orders"),
+>>>>>>> master
   });
 
   useEffect(() => {
@@ -23,18 +32,27 @@ const OrderShow = ({ order, currentUser }) => {
     findTimeLeft();
     const timerId = setInterval(findTimeLeft, 1000);
 
-    //put return to useEffect means that the function will be called once it navigates away (cleanup function)
+    //cleanup
     return () => {
       clearInterval(timerId);
     };
   }, [order]);
 
   if (timeLeft < 0) {
-    return <div>Order Expired</div>;
+    setTimeout(() => {
+      router.push("/orders");
+    }, 5000);
+    return (
+      <div>
+        <h1>Order Expired</h1>
+        <p>Redirecting to orders page...</p>
+      </div>
+    );
   }
 
   return (
     <div>
+<<<<<<< HEAD
       Time left to pay: {timeLeft} seconds
       <StripeCheckout
         token={({ id }) => doRequest({ token: id })}
@@ -53,6 +71,28 @@ const OrderShow = ({ order, currentUser }) => {
           <p>Order {order.id} has been paid</p>
         </div>
       )}
+=======
+      <Layout>
+        Time left to pay: {timeLeft} seconds
+        <StripeCheckout
+          token={({ id }) => doRequest({ token: id })}
+          stripeKey="pk_test_51MWhDuDNyzb8MqEPfVgTIrT6kv0Thj5phHNUXw93vEAJ6bD4dOZFqiRk2a9igmM4HChqVlQXbIEWhxv6xq9mcQZN00ayF1NqvM"
+          amount={order.ticket.price}
+          currency="TWD"
+          description={order.ticket.title}
+          label="Paid with Stripe"
+          name="Jim1984 Tickets"
+          email={currentUser.email}
+        />
+        {errors}
+        {success && (
+          <div className="alert alert-success">
+            <h4>Success</h4>
+            <p>Order {order.id} has been paid</p>
+          </div>
+        )}
+      </Layout>
+>>>>>>> master
     </div>
   );
 };

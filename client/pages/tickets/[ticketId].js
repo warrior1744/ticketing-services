@@ -1,7 +1,11 @@
 import useRequest from "../../hooks/useRequest";
-import Router from "next/router";
+import { useRouter } from "next/router";
+import Layout from "@/components/layout";
+import styles from "@/styles/Ticket.module.css";
+import Image from "next/image";
 
-const TicketShow = ({ ticket }) => {
+const TicketShow = ({ ticket, currentUser }) => {
+  const router = useRouter();
   const { doRequest, errors, success } = useRequest({
     url: "/api/orders",
     method: "post",
@@ -9,23 +13,35 @@ const TicketShow = ({ ticket }) => {
       ticketId: ticket.id,
     },
     onSuccess: (order) =>
-      Router.push("/orders/[orderId]", `/orders/${order.id}`),
+      router.push("/orders/[orderId]", `/orders/${order.id}`),
   });
   return (
-    <div>
-      <h1>{ticket.title}</h1>
-      <h4>Price: {ticket.price}</h4>
-      {errors}
-      {success && (
-        <div className="alert alert-success">
-          <h4>Success</h4>
-          <p>Order {ticket.id} has been created</p>
+    <Layout>
+      <div className={styles.event}>
+        <div>
+          <h1>{ticket.title}</h1>
+          <h4>Price: {ticket.price}</h4>
+          {errors}
+          {success && (
+            <div className="alert alert-success">
+              <p>Order {ticket.id} has been created</p>
+            </div>
+          )}
+          <button onClick={() => doRequest()} className="btn btn-primary">
+            Check Out
+          </button>
         </div>
-      )}
-      <button onClick={() => doRequest()} className="btn btn-primary">
-        Purchase
-      </button>
-    </div>
+        <div className={styles.img}>
+          <Image
+            style={{ objectFit: "contain" }}
+            alt={ticket.title}
+            src={ticket.image || "/images/event-default.png"}
+            width={600}
+            height={600}
+          />
+        </div>
+      </div>
+    </Layout>
   );
 };
 

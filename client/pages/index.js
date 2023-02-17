@@ -1,37 +1,20 @@
 import Link from "next/link";
+import Layout from "@/components/layout";
+import Ticket from "@/components/ticket";
 
 const Landing = ({ currentUser, tickets }) => {
-  const ticketList = tickets.map((ticket) => {
-    return (
-      <tr key={ticket.id}>
-        <td>{ticket.title}</td>
-        <td>{ticket.price}</td>
-        <td>
-          <Link
-            legacyBehavior
-            href="/tickets/[ticketId]"
-            as={`/tickets/${ticket.id}`}
-          >
-            <a className="nav-link"> View </a>
-          </Link>
-        </td>
-      </tr>
-    );
-  });
-
+  console.log('all tickets', tickets)
   return (
     <div>
-      <h1>Tickets</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>{ticketList}</tbody>
-      </table>
+      <Layout>
+        <h1>Available Tickets</h1>
+
+        {tickets.length === 0 && <h3>No Ticket Available Right Now !</h3>}
+
+        {tickets.map((ticket) => {
+          return <Ticket key={ticket.id} ticket={ticket} />;
+        })}
+      </Layout>
     </div>
   );
 };

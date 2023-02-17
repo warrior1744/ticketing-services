@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: us.gcr.io/ticketing-dev-jim/tickets
+          image: warrior1744/tickets
           env:
             - name: MONGO_URI
               value: 'mongodb://tickets-mongo-srv:27017/tickets'
@@ -31,6 +31,17 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: CLOUDINARY_NAME
+              value: dv5zffqwj
+            - name: CLOUDINARY_API_KEY
+              value: '863458427185868'
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cloudinary-secret
+                  key: CLOUDINARY_API_SECRET
+            - name: CLOUDINARY_URL
+              value: 'cloudinary://863458427185868:5eXK5OazbfcmOFgO8_UgsvPl07g@dv5zffqwj'
 ---
 apiVersion: v1
 kind: Service

@@ -5,6 +5,7 @@ import { json } from 'body-parser'
 import cookieSession from 'cookie-session'
 
 import { currentUserRouter } from './routes/current-user'
+import { usersrRouter } from './routes/users'
 import { signinRouter } from './routes/signin'
 import { signoutRouter } from './routes/signout'
 import { signupRouter } from './routes/signup'
@@ -22,6 +23,7 @@ app.use(
 )
 
 app.use(currentUserRouter)
+app.use(usersrRouter)
 app.use(signinRouter)
 app.use(signoutRouter)
 app.use(signupRouter)

@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
+<<<<<<< HEAD
 import Router from "next/router";
+=======
+import { useRouter } from "next/router";
+>>>>>>> master
 import useRequest from "../../hooks/useRequest";
+import Layout from "@/components/layout";
+import styles from "@/styles/Form.module.css"
+import Link from "next/link";
 
 const NewTicket = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const { doRequest, errors, success } = useRequest({
@@ -12,7 +20,11 @@ const NewTicket = () => {
       title,
       price,
     },
+<<<<<<< HEAD
     onSuccess: () => Router.push("/"),
+=======
+    onSuccess: () => router.push("/tickets/my"),
+>>>>>>> master
   });
 
   const onSubmit = async (e) => {
@@ -34,13 +46,18 @@ const NewTicket = () => {
     }
 
     setPrice(value.toFixed(0));
+<<<<<<< HEAD
     console.log("price", price);
+=======
+>>>>>>> master
   };
 
   return (
     <div>
+      <Layout title="Create a new ticket">
+        <Link href="/">Go back</Link>
       <h1>Create a Ticket</h1>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={styles.form}>
         <div className="form-group">
           <label>Title</label>
           <input
@@ -59,9 +76,9 @@ const NewTicket = () => {
           />
         </div>
         {errors}
-        {success}
-        <button className="btn btn-primary">Submit</button>
+        <input type="submit" value="Add Ticket" className="btn" />
       </form>
+      </Layout>
     </div>
   );
 };

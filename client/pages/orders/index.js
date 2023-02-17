@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-const OrderIndex = ({ orders }) => {
-  return (
-    <ul>
-      {orders.map((order) => {
-        return (
-          <li key={order.id}>
-            {order.ticket.title} - {order.status}
-          </li>
-        );
-      })}
-    </ul>
-=======
 import Link from "next/link";
 import Layout from "@/components/layout";
 import Image from "next/image";
@@ -49,20 +36,12 @@ const OrderIndex = ({ orders }) => {
         </ul>
       </Layout>
     </div>
->>>>>>> master
   );
 };
 
 OrderIndex.getInitialProps = async (context, client) => {
   const { data } = await client.get("/api/orders");
-<<<<<<< HEAD
-
   return { orders: data };
 };
 
-=======
-  return { orders: data };
-};
-
->>>>>>> master
 export default OrderIndex;

@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-<<<<<<< HEAD
-import Router from "next/router";
-=======
 import { useRouter } from "next/router";
->>>>>>> master
 import useRequest from "../../hooks/useRequest";
 import Layout from "@/components/layout";
 import styles from "@/styles/Form.module.css"
@@ -20,11 +16,7 @@ const NewTicket = () => {
       title,
       price,
     },
-<<<<<<< HEAD
-    onSuccess: () => Router.push("/"),
-=======
     onSuccess: () => router.push("/tickets/my"),
->>>>>>> master
   });
 
   const onSubmit = async (e) => {
@@ -46,10 +38,6 @@ const NewTicket = () => {
     }
 
     setPrice(value.toFixed(0));
-<<<<<<< HEAD
-    console.log("price", price);
-=======
->>>>>>> master
   };
 
   return (

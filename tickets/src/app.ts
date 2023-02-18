@@ -1,7 +1,7 @@
 import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
-
+import path from "path";
 import { createTicketRouter } from "./routes/new";
 import { myTicketRouter } from "./routes/my";
 import { showTicketRouter } from "./routes/show";
@@ -23,6 +23,8 @@ app.use(
     secure: false, //process.env.NODE_ENV !== 'test' //use https connection
   })
 );
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

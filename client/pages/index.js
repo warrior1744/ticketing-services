@@ -7,9 +7,7 @@ const Landing = ({ currentUser, tickets }) => {
     <div>
       <Layout>
         <h1>Available Tickets</h1>
-
         {tickets.length === 0 && <h3>No Ticket Available Right Now !</h3>}
-
         {tickets.map((ticket) => {
           return <Ticket key={ticket.id} ticket={ticket} />;
         })}

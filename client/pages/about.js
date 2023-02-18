@@ -19,6 +19,7 @@ function AboutPage() {
             Event Expiration Triggers
             Information Dashboard and more...
           </p>
+          <p>Version: 1.00</p>
 
         </div>
         <Link href='/' className=''>Return to Home Page</Link>

@@ -11,7 +11,7 @@ app.use(json())
 app.use(
     cookieSession({
         signed: false, //disable encryption (commonly used)
-        secure: process.env.NODE_ENV !== 'test' //use https connection
+        secure: false, //process.env.NODE_ENV !== 'test' //use https connection
     })
 )
 

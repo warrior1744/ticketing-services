@@ -3,7 +3,6 @@ import Layout from "@/components/layout";
 import Ticket from "@/components/ticket";
 
 const Landing = ({ currentUser, tickets }) => {
-  console.log('all tickets', tickets)
   return (
     <div>
       <Layout>

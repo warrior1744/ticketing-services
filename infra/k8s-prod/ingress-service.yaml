@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
 spec:
   rules:
-    - host: www.jim1984project.onlines
+    - host: www.jim1984project.online
       http:
         paths:
           - path: /api/payments/?(.*)

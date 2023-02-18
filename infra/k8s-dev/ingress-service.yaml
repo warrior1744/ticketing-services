@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
 spec:
   rules:
-    - host: ticketing.devs
+    - host: ticketing.dev
       http:
         paths:
           - path: /api/payments/?(.*)

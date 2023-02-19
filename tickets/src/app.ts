@@ -24,7 +24,11 @@ app.use(
   })
 );
 
-app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')))
+const resolve = path.resolve()
+console.log('path.resolve', resolve)
+console.log('__dirname', __dirname)
+console.log('upload path...',path.join(__dirname, '..','/uploads'))
+app.use('/uploads', express.static(path.join(__dirname, '..','/uploads')))
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,

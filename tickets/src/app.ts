@@ -20,21 +20,17 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false, //disable encryption (commonly used)
-    secure: false, //process.env.NODE_ENV !== 'test' //use https connection
+    secure: true, //process.env.NODE_ENV !== 'test' //use https connection
   })
 );
 
-const resolve = path.resolve()
-console.log('path.resolve', resolve)
-console.log('__dirname', __dirname)
-console.log('upload path...',path.join(__dirname, '..','/uploads'))
-app.use('/uploads', express.static(path.join(__dirname, '..','/uploads')))
+app.use("/uploads", express.static(path.join(__dirname, "..", "/uploads")));
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: false,
+  secure: true,
 });
 
 app.use(currentUser);

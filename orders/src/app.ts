@@ -16,7 +16,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false, //disable encryption (commonly used)
-    secure: false, //process.env.NODE_ENV !== 'test' //use https connection
+    secure: true, //process.env.NODE_ENV !== 'test' //use https connection
   })
 );
 app.use(currentUser);
